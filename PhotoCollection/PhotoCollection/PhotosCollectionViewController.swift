@@ -13,6 +13,15 @@ import UIKit
 class PhotosCollectionViewController: UICollectionViewController {
 
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView?.reloadData()
+        setTheme()
+    }
+    
+    
+    
     let photoController = PhotoController()
     let themeHelper = ThemeHelper()
     
@@ -28,10 +37,32 @@ class PhotosCollectionViewController: UICollectionViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "AddPhotoSegue" {
-            if let addPhotoVc = segue.destination as? PhotoDetailViewController {
-                guard let index = collectionView.indexPathsForSelectedItems?.first else { return }
-            }
+        switch segue.identifier {
+            
+        case "SelectTheme":
+            
+            guard let destinationVC = segue.destination as? ThemeSelectionViewController else { return }
+            
+            destinationVC.themeHelper = themeHelper
+            
+        case "AddMovieSegue":
+            
+            guard let destinationVC = segue.destination as? PhotoDetailViewController else { return }
+            
+            destinationVC.photoController = photoController
+            destinationVC.themeHelper = themeHelper
+            
+        case "PhotoCellSegue":
+            
+            guard let destinationVC = segue.destination as? PhotoDetailViewController,
+                let indexPath = collectionView?.indexPathsForSelectedItems?.first else { return }
+            
+            destinationVC.photo = photoController.photos[indexPath.row]
+            destinationVC.photoController = photoController
+            destinationVC.themeHelper = themeHelper
+            
+        default:
+            break
         }
     }
     
@@ -42,7 +73,7 @@ class PhotosCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 1
+        return photoController.photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,8 +92,22 @@ class PhotosCollectionViewController: UICollectionViewController {
         
         guard let theme = themeHelper.themePreference else { return }
         
+        var backgroundColor: UIColor!
+            
+            switch theme {
+            case "Dark":
+                backgroundColor = .lightGray
+            case "Blue":
+                backgroundColor = UIColor(red: 61/255, green: 172/255, blue: 247/255, alpha: 1)
+            default:
+                break
+            }
+            
+            collectionView?.backgroundColor = backgroundColor
+        }
+        
     }
 
 
 
-}
+

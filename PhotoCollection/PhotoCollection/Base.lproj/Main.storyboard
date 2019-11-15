@@ -68,12 +68,12 @@
                     <navigationItem key="navigationItem" id="FPf-Uw-XFi">
                         <barButtonItem key="leftBarButtonItem" title="Set Theme" id="r4r-A6-scA">
                             <connections>
-                                <segue destination="iJJ-n7-m30" kind="presentation" id="Wpe-7p-dFC"/>
+                                <segue destination="iJJ-n7-m30" kind="presentation" identifier="AddMovieSegue" id="Wpe-7p-dFC"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="MpO-cS-fka">
                             <connections>
-                                <segue destination="qoC-lM-Ypb" kind="show" identifier="AddPhotoSegue" id="Rtu-oR-B8X"/>
+                                <segue destination="qoC-lM-Ypb" kind="show" identifier="SelectTheme" id="Rtu-oR-B8X"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -122,10 +122,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="detailText" destination="XTH-c4-4aW" id="8q2-7L-W5X"/>
+                        <outlet property="detialImageView" destination="3Do-AF-qfn" id="92G-ma-kM2"/>
+                        <outlet property="imageView" destination="3Do-AF-qfn" id="gpQ-Ix-ZvQ"/>
+                        <outlet property="titleText" destination="XTH-c4-4aW" id="QxO-EV-fy5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgH-ms-Pkd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1764" y="59"/>
+            <point key="canvasLocation" x="1804" y="59"/>
         </scene>
         <!--Theme Selection View Controller-->
         <scene sceneID="Oug-5C-07B">
